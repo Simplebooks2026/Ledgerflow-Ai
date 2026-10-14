@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LedgerFlow AI — Build Documentation & Prompts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; }
+  .hero { background: linear-gradient(135deg, #0f172a, #1e293b); color: #fff; padding: 60px 40px; text-align: center; }
+  .hero h1 { font-size: 2.5rem; margin-bottom: 8px; }
+  .hero p { color: #94a3b8; font-size: 1.1rem; }
+  .hero .meta { margin-top: 16px; font-size: 0.85rem; color: #64748b; }
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+  h2 { font-size: 1.6rem; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; color: #0f172a; }
+  h3 { font-size: 1.15rem; color: #0f172a; }
+  p { margin-bottom: 12px; color: #334155; }
+  .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .badge { background: #0f172a; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; }
+  .purpose { color: #64748b; font-style: italic; margin-bottom: 16px; }
+  .label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; margin: 16px 0 6px; }
+  .code-block { background: #0f172a; color: #e2e8f0; padding: 16px; border-radius: 8px; font-family: 'SF Mono', Monaco, Consolas, monospace; font-size: 0.85rem; overflow-x: auto; white-space: pre-wrap; line-height: 1.5; }
+  .flow { color: #334155; font-size: 0.9rem; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  th { background: #f1f5f9; text-align: left; padding: 10px 14px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; color: #64748b; }
+  td { padding: 10px 14px; border-top: 1px solid #f1f5f9; font-size: 0.9rem; }
+  td code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.82rem; color: #0f172a; }
+  .entity { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; }
+  .entity h4 { font-size: 0.95rem; color: #0f172a; margin-bottom: 4px; }
+  .entity code { font-size: 0.8rem; color: #64748b; word-break: break-word; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .callout { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+  .callout strong { color: #1e40af; }
+  .toc { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin: 24px 0; }
+  .toc ol { padding-left: 20px; color: #334155; }
+  .toc li { margin: 6px 0; }
+  .toc a { color: #3b82f6; text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .step { display: flex; gap: 12px; margin-bottom: 14px; }
+  .step-num { background: #0f172a; color: #fff; border-radius: 50%; min-width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; }
+  .step-body { flex: 1; }
+  .step-body code { background: #f1f5f9; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; }
+  footer { text-align: center; padding: 40px; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid #e2e8f0; margin-top: 40px; }
+  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } .hero h1 { font-size: 1.8rem; } }
+  @media print { .hero { background: #0f172a; } body { background: #fff; } .card, table { break-inside: avoid; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>LedgerFlow AI</h1>
+  <p>Build Documentation, AI Prompts & Run Guide</p>
+  <div class="meta">Generated 14/10/2026, 14:17:41 · Full-stack double-entry accounting platform with AI automation</div>
+</div>
+
+<div class="container">
+
+  <div class="callout">
+    <strong>What this is:</strong> A complete record of every AI prompt, entity schema, page, library, and instruction used to build LedgerFlow AI. Open this file in any browser or HTML editor (VS Code, Sublime, Notepad++, browser) — it is fully self-contained with no external dependencies.
+  </div>
+
+  <div class="toc">
+    <h3 style="margin-bottom:12px">Contents</h3>
+    <ol>
+      <li><a href="#mission">Project Mission</a></li>
+      <li><a href="#architecture">Architecture Overview</a></li>
+      <li><a href="#prompts">AI Prompts & Backend Functions</a></li>
+      <li><a href="#entities">Database Entities (17)</a></li>
+      <li><a href="#pages">Pages & Routes (26)</a></li>
+      <li><a href="#libs">Libraries & Dependencies</a></li>
+      <li><a href="#run">How to Run / Open-Source Guide</a></li>
+      <li><a href="#key">Key Design Decisions</a></li>
+    </ol>
+  </div>
+
+  <h2 id="mission">1. Project Mission</h2>
+  <p><strong>LedgerFlow AI</strong> is an intelligent, full-stack accounting platform that automates bookkeeping, transaction categorization, and financial reporting with AI-driven insights to keep business finances accurate and audit-ready.</p>
+  <p>The system implements strict double-entry accounting (debits = credits as a non-negotiable constraint), decimal-safe monetary arithmetic to prevent floating-point errors, an immutable audit log, multi-language support (English / Arabic with RTL), and AI-powered transaction categorization, receipt extraction, and a natural-language accounting assistant.</p>
+
+  <h2 id="architecture">2. Architecture Overview</h2>
+  <div class="card">
+    <div class="label">Frontend</div>
+    <p>React 18 + Vite + Tailwind CSS + shadcn/ui. Single-page application with client-side routing (react-router-dom). All financial calculations happen client-side using decimal-safe helpers (<code>src/lib/money.js</code>) and the accounting engine (<code>src/lib/accounting.js</code>).</p>
+    <div class="label">Backend</div>
+    <p>Base44 platform (backend-as-a-service): persistent JSON entities with foreign-key relationships, serverless backend functions (Deno/TypeScript) for AI integration, built-in authentication, and Core integrations (InvokeLLM, file upload, email).</p>
+    <div class="label">AI Layer</div>
+    <p>Five backend functions handle AI: <code>aiCategorize</code> (transaction categorization), <code>aiAssistant</code> (natural-language Q&A), <code>aiInsights</code> (rule-based insights), <code>extractReceipt</code> (vision OCR), <code>seedDemoData</code> (demo data generation). All use <code>base44.asServiceRole.integrations.Core.InvokeLLM</code>.</p>
+    <div class="label">Data Integrity</div>
+    <p>Double-entry validation enforced on every journal entry before posting. Trial balance computed from posted entries. Reports (P&L, Balance Sheet, Cash Flow) calculated directly from the ledger — never stored as snapshots.</p>
+  </div>
+
+  <h2 id="prompts">3. AI Prompts & Backend Functions</h2>
+  <p>These are the exact prompts and logic used in each backend function. Each function runs server-side on Deno and is invoked from the frontend via the Base44 SDK.</p>
+  
+    <div class="card">
+      <div class="card-header">
+        <span class="badge">1</span>
+        <h3>aiCategorize</h3>
+      </div>
+      <p class="purpose">AI transaction categorization — suggests the best matching expense/revenue account for uncategorized bank transactions.</p>
+      <div class="label">Prompt / Logic</div>
+      <pre class="code-block">You are an expert bookkeeping AI. For each bank transaction, suggest the best matching expense/revenue account.
+Return JSON array. Each item: { id, account_id, confidence (0-100), transaction_type, tax_treatment }.
+Transactions: &lt;JSON of uncategorized transactions&gt;
+Available accounts: &lt;JSON of chart of accounts&gt;
+Pick the account_id from the available accounts. Use expense accounts for money out (negative amount), revenue accounts for money in (positive amount).</pre>
+      <div class="label">Flow</div>
+      <p class="flow">1. Apply deterministic accounting rules first (confidence 100). 2. For unmatched transactions, call InvokeLLM with the prompt above and a JSON schema. 3. Merge rule + AI suggestions. 4. User reviews and accepts before posting.</p>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <span class="badge">2</span>
+        <h3>aiAssistant</h3>
+      </div>
+      <p class="purpose">AI accounting assistant — answers natural-language questions using the user's authorized ledger data.</p>
+      <div class="label">Prompt / Logic</div>
+      <pre class="code-block">You are an AI accounting assistant for a double-entry accounting platform. Answer the user's question using ONLY the provided financial summary. Do not invent figures. If the data is insufficient, say so. Distinguish actual data from calculations. Keep answers concise and cite the relevant accounts/date range when presenting numbers.
+
+Financial summary (JSON):
+&lt;compact summary: totals, AR, AP, overdue invoices, unpaid bills, expense by account, counts&gt;
+
+User question: &lt;the user's question&gt;</pre>
+      <div class="label">Flow</div>
+      <p class="flow">1. Gather accounts, journal entries, invoices, bills, customers, vendors scoped to company_id. 2. Build a compact financial summary (revenue, expenses, net profit, AR, AP, overdue, expense breakdown). 3. Send summary + question to InvokeLLM. 4. Return answer + summary.</p>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <span class="badge">3</span>
+        <h3>aiInsights</h3>
+      </div>
+      <p class="purpose">Rule-based financial insight engine — detects duplicates, large transactions, uncategorized items, overdue invoices/bills, and unreconciled transactions.</p>
+      <div class="label">Prompt / Logic</div>
+      <pre class="code-block">(No LLM call — pure deterministic rules over posted journal entries, invoices, bills, and bank transactions.)</pre>
+      <div class="label">Flow</div>
+      <p class="flow">Checks: duplicate-looking entries (same date+description+amount), large transactions (&gt;10,000), uncategorized bank transactions, overdue invoices, overdue bills, unreconciled bank transactions. Returns array of {type, severity, message}.</p>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <span class="badge">4</span>
+        <h3>extractReceipt</h3>
+      </div>
+      <p class="purpose">AI vision receipt extraction — reads vendor, date, amounts from an uploaded receipt image/PDF.</p>
+      <div class="label">Prompt / Logic</div>
+      <pre class="code-block">Extract the following fields from this receipt or invoice image. Return JSON. If a field is not present, use null.
+Fields: vendor, date (YYYY-MM-DD), receipt_number, subtotal (number), tax (number), total (number), currency (ISO code).</pre>
+      <div class="label">Flow</div>
+      <p class="flow">1. Client uploads receipt via UploadPrivateFile (stored privately). 2. Pass file_url to this function. 3. InvokeLLM with vision (file_urls) + JSON schema. 4. Return extracted data to pre-fill the expense form.</p>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <span class="badge">5</span>
+        <h3>seedDemoData</h3>
+      </div>
+      <p class="purpose">Seeds a demo company with 12 months of realistic double-entry accounting data for testing.</p>
+      <div class="label">Prompt / Logic</div>
+      <pre class="code-block">(No LLM call — deterministic data generation.)</pre>
+      <div class="label">Flow</div>
+      <p class="flow">Creates: Acme Trading Co. (Demo), 25-account chart of accounts, VAT 5% tax code, 3 customers, 4 vendors, opening balances, 1 bank account, 12 months of invoices (with AR journal entries), payments, monthly expenses (with journal entries), vendor bills (with AP journal entries), and bank transactions. ~156 journal entries total.</p>
+    </div>
+
+  <h2 id="entities">4. Database Entities (17)</h2>
+  <p>All entities use Base44 persistent storage with built-in fields (<code>id, created_date, updated_date, created_by_id</code>). Every entity includes a <code>company_id</code> foreign key for multi-company isolation.</p>
+  <div class="grid">
+    <div class="entity">
+      <h4>Company</h4>
+      <code>name, legal_name, registration_number, tax_number, address, city, country, phone, email, website, base_currency, fiscal_year_start, accounting_method, logo, is_demo</code>
+    </div>
+    <div class="entity">
+      <h4>Account</h4>
+      <code>company_id, code, name, type (asset|liability|equity|revenue|expense), subtype, parent_id, is_archived, is_default, tax_treatment, opening_balance, description</code>
+    </div>
+    <div class="entity">
+      <h4>JournalEntry</h4>
+      <code>company_id, entry_date, reference, description, source (manual|bank_import|invoice|bill|expense|payment|ai), currency, exchange_rate, status (draft|posted), lines[], created_by_name, period_id</code>
+    </div>
+    <div class="entity">
+      <h4>BankAccount</h4>
+      <code>company_id, name, account_number, bank_name, currency, opening_balance, current_balance, gl_account_id, is_active</code>
+    </div>
+    <div class="entity">
+      <h4>BankTransaction</h4>
+      <code>company_id, bank_account_id, date, description, reference, debit, credit, amount, balance, currency, status (uncategorized|categorized|posted|reconciled), journal_entry_id, is_duplicate, ai_suggestion, category_account_id, import_batch_id</code>
+    </div>
+    <div class="entity">
+      <h4>Customer</h4>
+      <code>company_id, name, company_name, email, phone, address, tax_number, payment_terms, currency, opening_balance, notes</code>
+    </div>
+    <div class="entity">
+      <h4>Vendor</h4>
+      <code>company_id, name, company_name, email, phone, address, tax_number, payment_terms, currency, opening_balance, notes</code>
+    </div>
+    <div class="entity">
+      <h4>Invoice</h4>
+      <code>company_id, number, customer_id, customer_name, invoice_date, due_date, currency, lines[], subtotal, tax_amount, total, amount_paid, status (draft|sent|partially_paid|paid|overdue|cancelled), notes, journal_entry_id</code>
+    </div>
+    <div class="entity">
+      <h4>Estimate</h4>
+      <code>company_id, number, customer_id, customer_name, estimate_date, expiry_date, currency, lines[], subtotal, tax_amount, total, status (draft|sent|accepted|declined|expired|converted), notes, invoice_id</code>
+    </div>
+    <div class="entity">
+      <h4>Bill</h4>
+      <code>company_id, number, vendor_id, vendor_name, bill_date, due_date, currency, lines[], subtotal, tax_amount, total, amount_paid, status (draft|open|partially_paid|paid|overdue|cancelled), notes, journal_entry_id</code>
+    </div>
+    <div class="entity">
+      <h4>Expense</h4>
+      <code>company_id, date, vendor_name, category_account_id, amount, tax_amount, total, payment_account_id, description, receipt_url, status (draft|posted), ai_extracted, journal_entry_id</code>
+    </div>
+    <div class="entity">
+      <h4>Payment</h4>
+      <code>company_id, type (customer_payment|vendor_payment), party_id, party_name, amount, date, account_id, reference, invoice_id, bill_id, status, journal_entry_id</code>
+    </div>
+    <div class="entity">
+      <h4>TaxCode</h4>
+      <code>company_id, name, code, rate, type (output|input|exempt|zero_rated), is_default</code>
+    </div>
+    <div class="entity">
+      <h4>AccountingPeriod</h4>
+      <code>company_id, name, start_date, end_date, status (open|closed|locked), closing_date</code>
+    </div>
+    <div class="entity">
+      <h4>AccountingRule</h4>
+      <code>company_id, name, condition_field, condition_operator, condition_value, debit_account_id, credit_account_id, transaction_type, is_active</code>
+    </div>
+    <div class="entity">
+      <h4>AuditLog</h4>
+      <code>company_id, user_name, action (created|updated|deleted|posted|unposted|approved|reconciled|imported|exported|login|logout), module, record_id, previous_value, new_value, details</code>
+    </div>
+    <div class="entity">
+      <h4>AIRecommendation</h4>
+      <code>company_id, entity_type, entity_id, suggestion, confidence, status (pending|accepted|rejected)</code>
+    </div></div>
+
+  <h2 id="pages">5. Pages & Routes (26)</h2>
+  <table>
+    <thead><tr><th>Route</th><th>Component</th><th>Group</th><th>Description</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><code>/</code></td>
+      <td><strong>Dashboard</strong></td>
+      <td>—</td>
+      <td>KPI cards, revenue vs expense bar chart, expense pie, AI insights</td>
+    </tr>
+    <tr>
+      <td><code>/bank-accounts</code></td>
+      <td><strong>BankAccounts</strong></td>
+      <td>Banking</td>
+      <td>CRUD bank accounts, link to GL, balance display</td>
+    </tr>
+    <tr>
+      <td><code>/transactions</code></td>
+      <td><strong>Transactions</strong></td>
+      <td>Banking</td>
+      <td>Bank transaction list, categorization, AI suggestions</td>
+    </tr>
+    <tr>
+      <td><code>/reconciliation</code></td>
+      <td><strong>Reconciliation</strong></td>
+      <td>Banking</td>
+      <td>Match bank transactions to ledger</td>
+    </tr>
+    <tr>
+      <td><code>/import</code></td>
+      <td><strong>Import</strong></td>
+      <td>Banking</td>
+      <td>CSV import wizard with duplicate detection + AI categorization</td>
+    </tr>
+    <tr>
+      <td><code>/customers</code></td>
+      <td><strong>Customers</strong></td>
+      <td>Sales</td>
+      <td>Customer CRUD, outstanding balance</td>
+    </tr>
+    <tr>
+      <td><code>/estimates</code></td>
+      <td><strong>Estimates</strong></td>
+      <td>Sales</td>
+      <td>Estimate CRUD, status lifecycle, convert to invoice</td>
+    </tr>
+    <tr>
+      <td><code>/invoices</code></td>
+      <td><strong>Invoices</strong></td>
+      <td>Sales</td>
+      <td>Invoice CRUD, auto AR journal entry, print</td>
+    </tr>
+    <tr>
+      <td><code>/payments</code></td>
+      <td><strong>Payments</strong></td>
+      <td>Sales</td>
+      <td>Payment recording, auto receipt journal entry</td>
+    </tr>
+    <tr>
+      <td><code>/vendors</code></td>
+      <td><strong>Vendors</strong></td>
+      <td>Purchases</td>
+      <td>Vendor CRUD</td>
+    </tr>
+    <tr>
+      <td><code>/bills</code></td>
+      <td><strong>Bills</strong></td>
+      <td>Purchases</td>
+      <td>Bill CRUD, auto AP journal entry</td>
+    </tr>
+    <tr>
+      <td><code>/expenses</code></td>
+      <td><strong>Expenses</strong></td>
+      <td>Purchases</td>
+      <td>Expense CRUD, AI receipt extraction</td>
+    </tr>
+    <tr>
+      <td><code>/chart-of-accounts</code></td>
+      <td><strong>ChartOfAccounts</strong></td>
+      <td>Accounting</td>
+      <td>Account CRUD, archive, search, filter by type</td>
+    </tr>
+    <tr>
+      <td><code>/journal-entries</code></td>
+      <td><strong>JournalEntries</strong></td>
+      <td>Accounting</td>
+      <td>JE CRUD, balanced validation, post/draft</td>
+    </tr>
+    <tr>
+      <td><code>/general-ledger</code></td>
+      <td><strong>GeneralLedger</strong></td>
+      <td>Accounting</td>
+      <td>Running balance, filters, CSV export</td>
+    </tr>
+    <tr>
+      <td><code>/trial-balance</code></td>
+      <td><strong>TrialBalance</strong></td>
+      <td>Accounting</td>
+      <td>Trial balance with integrity check</td>
+    </tr>
+    <tr>
+      <td><code>/reports/profit-loss</code></td>
+      <td><strong>ProfitLoss</strong></td>
+      <td>Reports</td>
+      <td>P&amp;L statement by date range</td>
+    </tr>
+    <tr>
+      <td><code>/reports/balance-sheet</code></td>
+      <td><strong>BalanceSheet</strong></td>
+      <td>Reports</td>
+      <td>Balance sheet as at date</td>
+    </tr>
+    <tr>
+      <td><code>/reports/cash-flow</code></td>
+      <td><strong>CashFlow</strong></td>
+      <td>Reports</td>
+      <td>Cash flow summary (operating/investing/financing)</td>
+    </tr>
+    <tr>
+      <td><code>/reports/ar-aging</code></td>
+      <td><strong>ARAging</strong></td>
+      <td>Reports</td>
+      <td>Accounts receivable aging</td>
+    </tr>
+    <tr>
+      <td><code>/reports/ap-aging</code></td>
+      <td><strong>APAging</strong></td>
+      <td>Reports</td>
+      <td>Accounts payable aging</td>
+    </tr>
+    <tr>
+      <td><code>/reports/tax</code></td>
+      <td><strong>TaxReport</strong></td>
+      <td>Reports</td>
+      <td>Tax/VAT report</td>
+    </tr>
+    <tr>
+      <td><code>/reports/audit-trail</code></td>
+      <td><strong>AuditTrail</strong></td>
+      <td>Reports</td>
+      <td>Immutable audit log</td>
+    </tr>
+    <tr>
+      <td><code>/full-report</code></td>
+      <td><strong>FullReport</strong></td>
+      <td>Reports</td>
+      <td>Complete PDF export of all data</td>
+    </tr>
+    <tr>
+      <td><code>/ai-assistant</code></td>
+      <td><strong>AIAssistant</strong></td>
+      <td>AI</td>
+      <td>Chat interface for accounting questions</td>
+    </tr>
+    <tr>
+      <td><code>/settings</code></td>
+      <td><strong>Settings</strong></td>
+      <td>—</td>
+      <td>Company, accounting, tax, currency, language, periods</td>
+    </tr></tbody>
+  </table>
+
+  <h2 id="libs">6. Libraries & Dependencies</h2>
+  <table>
+    <thead><tr><th>Library</th><th>Purpose</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><strong>React 18</strong></td>
+      <td>UI framework</td>
+    </tr>
+    <tr>
+      <td><strong>Vite 8</strong></td>
+      <td>Build tool / dev server</td>
+    </tr>
+    <tr>
+      <td><strong>Tailwind CSS 3</strong></td>
+      <td>Utility-first styling</td>
+    </tr>
+    <tr>
+      <td><strong>shadcn/ui (Radix)</strong></td>
+      <td>Component library</td>
+    </tr>
+    <tr>
+      <td><strong>lucide-react</strong></td>
+      <td>Icons</td>
+    </tr>
+    <tr>
+      <td><strong>recharts</strong></td>
+      <td>Charts (dashboard)</td>
+    </tr>
+    <tr>
+      <td><strong>react-router-dom 6</strong></td>
+      <td>Routing</td>
+    </tr>
+    <tr>
+      <td><strong>@tanstack/react-query</strong></td>
+      <td>Server state / data fetching</td>
+    </tr>
+    <tr>
+      <td><strong>react-hook-form + zod</strong></td>
+      <td>Forms &amp; validation</td>
+    </tr>
+    <tr>
+      <td><strong>date-fns / moment</strong></td>
+      <td>Date utilities</td>
+    </tr>
+    <tr>
+      <td><strong>jspdf + html2canvas</strong></td>
+      <td>PDF generation</td>
+    </tr>
+    <tr>
+      <td><strong>react-markdown</strong></td>
+      <td>Markdown rendering (AI assistant)</td>
+    </tr>
+    <tr>
+      <td><strong>framer-motion</strong></td>
+      <td>Animations</td>
+    </tr>
+    <tr>
+      <td><strong>@base44/sdk</strong></td>
+      <td>Backend-as-a-service (auth, entities, integrations)</td>
+    </tr></tbody>
+  </table>
+
+  <h2 id="run">7. How to Run — Open-Source Guide</h2>
+  <div class="callout">
+    <strong>Prerequisites:</strong> Node.js 18+, npm, and a Base44 account (free tier works). The app uses the Base44 SDK for backend services — entities, auth, and AI integrations run on the Base44 platform.
+  </div>
+
+  <div class="label">Option A — Run locally with Base44 backend (recommended)</div>
+  <div class="step"><div class="step-num">1</div><div class="step-body">Clone the repo and install dependencies: <code>npm install</code></div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-body">Install Base44 CLI: <code>npm install -g base44@latest</code></div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-body">Install <a href="https://docs.deno.com/runtime/getting_started/installation/">Deno</a> (local backend runtime)</div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-body">Link the app: <code>base44 link</code> (one-time per clone; app id is in the Builder URL)</div></div>
+  <div class="step"><div class="step-num">5</div><div class="step-body">Login: <code>base44 login</code> (one-time per machine)</div></div>
+  <div class="step"><div class="step-num">6</div><div class="step-body">Start dev server: <code>base44 dev</code> — opens at <code>http://localhost:5173</code></div></div>
+  <div class="step"><div class="step-num">7</div><div class="step-body">The app must be published at least once for the UI to load under <code>base44 dev</code> (frontend fetches app settings from the hosted app).</div></div>
+
+  <div class="label">Option B — Frontend only against hosted backend</div>
+  <div class="step"><div class="step-body">Run <code>base44 dev --remote</code> — serves the frontend locally but writes go to your app's <strong>production data</strong>.</div></div>
+
+  <div class="label">Option C — Open in an HTML/code editor</div>
+  <div class="step"><div class="step-body">Open the project folder in <strong>VS Code</strong>, <strong>Sublime Text</strong>, or any editor. The source is standard React/JS in <code>src/</code>, entity schemas in <code>base44/entities/</code>, and backend functions in <code>base44/functions/</code>. Use <code>npm run build</code> to produce a static bundle in <code>dist/</code>.</div></div>
+
+  <div class="label">Seed demo data</div>
+  <div class="step"><div class="step-body">After first login, go to <strong>Settings → Demo Data</strong> and click "Seed Demo Data" to populate a demo company with 12 months of realistic accounting entries (25 accounts, ~156 journal entries, invoices, bills, expenses, bank transactions).</div></div>
+
+  <h2 id="key">8. Key Design Decisions</h2>
+  <div class="card">
+    <div class="label">Double-Entry Integrity</div>
+    <p>Every journal entry is validated: total debits must equal total credits, each line needs an account, no negative amounts, no line with both debit and credit. Entries are <code>draft</code> until posted.</p>
+    <div class="label">Decimal-Safe Money</div>
+    <p>All monetary arithmetic rounds to 2 decimals after every operation (<code>Math.round((n + Number.EPSILON) * 100) / 100</code>) to prevent floating-point drift.</p>
+    <div class="label">Immutable Audit Log</div>
+    <p>Every financial action (create, post, update, delete, reconcile, import) is logged with user, action, module, record id, and details.</p>
+    <div class="label">AI with Human Approval</div>
+    <p>AI categorization suggestions are never auto-posted. The user reviews and accepts/rejects each suggestion before a journal entry is created.</p>
+    <div class="label">Multi-Language / RTL</div>
+    <p>All UI text uses translation keys. Arabic switches the entire layout to RTL (<code>dir="rtl"</code>) including sidebar, tables, and forms.</p>
+    <div class="label">Private Receipt Storage</div>
+    <p>Uploaded receipts use <code>UploadPrivateFile</code> — no public URL, access follows app permissions. Signed URLs are generated on demand for viewing.</p>
+    <div class="label">Reports from Ledger</div>
+    <p>P&L, Balance Sheet, Cash Flow, and Trial Balance are all computed live from posted journal entry lines — never stored as snapshots, ensuring they always match the ledger.</p>
+  </div>
+
+</div>
+
+<footer>
+  LedgerFlow AI — Build Documentation<br>
+  Generated from the live application source code
+</footer>
+
+</body>
+</html>
